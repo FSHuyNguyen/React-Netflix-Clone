@@ -25,6 +25,17 @@ const Login = () => {
     setLoading(false);
   };
 
+  const handleChangePopup = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    if (signState === "Sign In") {
+      setSignState("Sign Up");
+    } else {
+      setSignState("Sign In");
+    }
+  };
+
   return loading ? (
     <div className="loading-spinner">
       <img src={netflix_spinner} alt="Loading spinner" />
@@ -72,24 +83,12 @@ const Login = () => {
           {signState === "Sign In" ? (
             <p>
               New to Netflix?{" "}
-              <span
-                onClick={() => {
-                  setSignState("Sign Up");
-                }}
-              >
-                Sign Up Now
-              </span>
+              <span onClick={() => handleChangePopup()}>Sign Up Now</span>
             </p>
           ) : (
             <p>
               Already have account?{" "}
-              <span
-                onClick={() => {
-                  setSignState("Sign In");
-                }}
-              >
-                Sign In Now
-              </span>
+              <span onClick={() => handleChangePopup()}>Sign In Now</span>
             </p>
           )}
         </div>

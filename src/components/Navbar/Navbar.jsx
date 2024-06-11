@@ -5,21 +5,30 @@ import search_icon from "../../assets/search_icon.svg";
 import bell_icon from "../../assets/bell_icon.svg";
 import profile_img from "../../assets/profile_img.png";
 import caret_icon from "../../assets/caret_icon.svg";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { useEffect } from "react";
 import { logout } from "../../firebase";
+import { AppContext } from "../../Context/AppContext";
 
 const Navbar = () => {
   const navRef = useRef();
+  const { userData } = useContext(AppContext);
+  console.log("userData", userData);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (window.scrollY >= 80) {
         navRef.current.classList.add("nav-dark");
       } else {
         navRef.current.classList.remove("nav-dark");
       }
-    });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -37,7 +46,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <img src={search_icon} alt="Search icon" className="icons" />
-        <p>Huy Nguyen</p>
+        <p>{userData.displayName ? userData.displayName : "User"}</p>
         <img src={bell_icon} alt="Bell icon" className="icons" />
         <div className="navbar-profile">
           <img src={profile_img} alt="Profile icon" className="profile" />

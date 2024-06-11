@@ -7,6 +7,7 @@ import { auth } from "./firebase";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AppProvider } from "./Context/AppContext";
 
 const App = () => {
   const navigate = useNavigate();
@@ -25,14 +26,16 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <ToastContainer theme="dark" />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/player/:id" element={<Player />} />
-      </Routes>
-    </div>
+    <AppProvider>
+      <div>
+        <ToastContainer theme="dark" />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/player/:id" element={<Player />} />
+        </Routes>
+      </div>
+    </AppProvider>
   );
 };
 
